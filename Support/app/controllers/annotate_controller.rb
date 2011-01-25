@@ -2,7 +2,7 @@
 
 class AnnotateController < ApplicationController
   include DateHelpers
-  layout "application", :except => "update"
+  layout "application", :except => ["update", "show"]
   def index
     @file_path = params[:file_path] || ENV['TM_FILEPATH']
     @annotations = git.annotate(@file_path)
@@ -15,7 +15,19 @@ class AnnotateController < ApplicationController
     @log_entries = git.log(:path => @file_path)
     render "index"
   end
-  
+
+  def show
+    @file_path = params[:file_path] || ENV['TM_FILEPATH']
+    @line_number = params[:line_number] || ENV['TM_LINE_NUMBER']
+    @annotation = git.annotate_line(@file_path, @line_number)
+    if @annotation.nil?
+      puts "Error.  Aborting"
+      abort
+    end
+
+    render "show"
+  end
+
   def update
     file_path = ENV['TM_FILEPATH']
     revision = params[:revision]

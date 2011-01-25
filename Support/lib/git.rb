@@ -302,19 +302,30 @@ module SCM
       end
       EOF
     end
-    
+
     def annotate(file_path, revision = nil)
       file = make_local_path(file_path)
       args = [file]
       args << revision unless revision.nil? || revision.empty?
       output = command("annotate", *args)
       if output.match(/^fatal:/)
-        puts output 
+        puts output
         return nil
       end
       parse_annotation(output)
     end
-    
+
+    def annotate_line(file_path, line_number)
+      file = make_local_path(file_path)
+      args = [file, "-L #{line_number}, #{line_number}"]
+      output = command("annotate", *args)
+      if output.match(/^fatal:/)
+        puts output
+        return nil
+      end
+      parse_annotation(output)
+    end
+
     def describe(revision, options = {})
       args = ["describe"]
       case options[:use]

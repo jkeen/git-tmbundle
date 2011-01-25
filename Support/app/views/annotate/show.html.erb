@@ -1,0 +1,3 @@
+<% @annotation.each do |annotation| %>
+<%= annotation[:author] %> <%= relative_date(annotation[:date]) %> ago
+<% end %>
