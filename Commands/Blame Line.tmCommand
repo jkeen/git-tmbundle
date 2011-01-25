@@ -11,11 +11,13 @@ require ENV['TM_BUNDLE_SUPPORT'] + '/environment.rb'
 dispatch(:controller =&gt; "annotate", :action =&gt; "show")
 </string>
 	<key>input</key>
-	<string>selection</string>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>^G</string>
 	<key>name</key>
 	<string>Blame Line</string>
 	<key>output</key>
-	<string>replaceSelectedText</string>
+	<string>showAsTooltip</string>
 	<key>uuid</key>
 	<string>2F717AEA-21F9-4749-9D7E-AEFB549D5044</string>
 </dict>
